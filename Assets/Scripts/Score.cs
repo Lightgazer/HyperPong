@@ -17,11 +17,13 @@ public class Score : MonoBehaviour
     TextMeshProUGUI playerText;
     int enemyScore = 0;
     TextMeshProUGUI enemyText;
+    IMessage message;
 
     private void Awake()
     {
         playerText = GameObject.Find("Player Score").GetComponent<TextMeshProUGUI>();
         enemyText = GameObject.Find("Enemy Score").GetComponent<TextMeshProUGUI>();
+        message = GetComponent<IMessage>();
     }
 
     public HitStatus CheckScore(GameObject hit)
@@ -41,7 +43,7 @@ public class Score : MonoBehaviour
 
         ShowScore();
         var endGame = CheckWin();
-        if(endGame) status = HitStatus.EndGame;
+        if (endGame) status = HitStatus.EndGame;
 
         return status;
     }
@@ -56,33 +58,14 @@ public class Score : MonoBehaviour
     {
         if (playerScore >= winScore)
         {
-            ShowMessage("Win Message");
+            message.Show(Message.Win);
             return true;
         }
         else if (enemyScore >= winScore)
         {
-            ShowMessage("Lose Message");
+            message.Show(Message.Lose);
             return true;
         }
         return false;
-    }
-
-    // где-то здесь нужно начать выделать отдельный класс
-    private void ShowMessage(string name)
-    {
-        var transform = GameObject.Find(name).GetComponent<RectTransform>();
-        StartCoroutine(AnimationCoroutine(transform));
-    }
-
-
-    IEnumerator AnimationCoroutine(RectTransform transform)
-    {
-        float speed = 4;
-        while (transform.anchoredPosition.x != 0)
-        {
-            if (transform.anchoredPosition.x > 0) transform.anchoredPosition = new Vector2(transform.anchoredPosition.x - speed, 0);
-            else transform.anchoredPosition = new Vector2(transform.anchoredPosition.x + speed, 0);
-            yield return new WaitForFixedUpdate();
-        }
     }
 }
