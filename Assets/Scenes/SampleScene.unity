@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 32980325}
   - component: {fileID: 32980321}
   - component: {fileID: 32980323}
+  - component: {fileID: 32980322}
   m_Layer: 0
   m_Name: ScoreManager
   m_TagString: Untagged
@@ -152,6 +153,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winScore: 1
+--- !u!114 &32980322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 32980320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc712144db6506e4e8145017154d3d5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  winMessage: {fileID: 1579401785}
+  loseMessage: {fileID: 2019826750}
+  speed: 14
 --- !u!222 &32980323
 CanvasRenderer:
   m_ObjectHideFlags: 2
@@ -635,6 +651,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 10.1
   maxAcceleration: 10
+  activeMaterial: {fileID: 2100000, guid: 26aedbfb99fc5f84794be4c091abbd5c, type: 2}
 --- !u!1 &667735240
 GameObject:
   m_ObjectHideFlags: 0

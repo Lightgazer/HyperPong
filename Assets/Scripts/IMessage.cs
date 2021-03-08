@@ -1,6 +1,6 @@
 using UnityEngine;
 
-internal interface IMessage
+interface IMessage
 {
     void Show(Message name);
 }

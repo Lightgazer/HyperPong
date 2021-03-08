@@ -7,16 +7,21 @@ public class ControlableSphere : MonoBehaviour
     Vector3 velocity;
     Vector3 desiredVelocity;
     Rigidbody body;
+    IAbility ability;
 
     void Awake()
     {
         body = GetComponent<Rigidbody>();
+        ability = GetComponent<IAbility>();
     }
     void Update()
     {
         Vector2 playerInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         playerInput = Vector2.ClampMagnitude(playerInput, 1f);
         desiredVelocity = new Vector3(playerInput.x, 0f, playerInput.y) * maxSpeed;
+
+        if (Input.GetKeyDown(KeyCode.Space)) ability.TurnOn();
+        if (Input.GetKeyUp(KeyCode.Space)) ability.TurnOff();
     }
 
     void FixedUpdate()
@@ -27,19 +32,37 @@ public class ControlableSphere : MonoBehaviour
         velocity.z = Mathf.MoveTowards(velocity.z, desiredVelocity.z, maxSpeedChange);
         body.velocity = velocity;
     }
+}
 
-    //     void Jump()
-    //     {
-    //         desiredJump = false;
-    //         if (onGround || jumpPhase < maxAirJumps)
-    //         {
-    //             jumpPhase++;
-    //             var jumpSpeed = Mathf.Sqrt(-2f * Physics.gravity.y * jumpHeight);
-    //             if (velocity.y > 0f)
-    //             {
-    //                 jumpSpeed = Mathf.Max(jumpSpeed - velocity.y, 0f);
-    //             }
-    //             velocity.y += jumpSpeed;
-    //         }
-    //     }
+interface IAbility
+{
+    void TurnOn();
+    void TurnOff();
+}
+
+class GravityPullAbility : MonoBehaviour, IAbility
+{
+    [SerializeField] Material activeMaterial;
+    Material defMaterial;
+    MeshRenderer mesh;
+    void Awake()
+    {
+        mesh = GetComponent<MeshRenderer>();
+        defMaterial = mesh.material;
+    }
+
+    public void TurnOn()
+    {
+        mesh.material = activeMaterial;
+    }
+
+    public void TurnOff()
+    {
+        mesh.material = defMaterial;
+    }
+
+    void OnDisable()
+    {
+        mesh.material = defMaterial;
+    }
 }
