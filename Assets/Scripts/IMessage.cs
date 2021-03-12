@@ -1,5 +1,3 @@
-using UnityEngine;
-
 interface IMessage
 {
     void Show(Message name);

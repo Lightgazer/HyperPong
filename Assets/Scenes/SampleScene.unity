@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57fe06569fc6f944cb116d07546b072b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  winScore: 1
+  winScore: 15
 --- !u!114 &32980322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -540,6 +540,7 @@ GameObject:
   - component: {fileID: 594770010}
   - component: {fileID: 594770014}
   - component: {fileID: 594770015}
+  - component: {fileID: 594770016}
   m_Layer: 0
   m_Name: Sphere Player
   m_TagString: Untagged
@@ -651,7 +652,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 10.1
   maxAcceleration: 10
+--- !u!114 &594770016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 594770009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f50fed86b25e1434ba8b54c59a6e6e59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   activeMaterial: {fileID: 2100000, guid: 26aedbfb99fc5f84794be4c091abbd5c, type: 2}
+  gravForce: 1
 --- !u!1 &667735240
 GameObject:
   m_ObjectHideFlags: 0

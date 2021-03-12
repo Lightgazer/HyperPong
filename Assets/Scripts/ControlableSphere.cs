@@ -14,6 +14,7 @@ public class ControlableSphere : MonoBehaviour
         body = GetComponent<Rigidbody>();
         ability = GetComponent<IAbility>();
     }
+    
     void Update()
     {
         Vector2 playerInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
@@ -31,38 +32,5 @@ public class ControlableSphere : MonoBehaviour
         velocity.x = Mathf.MoveTowards(velocity.x, desiredVelocity.x, maxSpeedChange);
         velocity.z = Mathf.MoveTowards(velocity.z, desiredVelocity.z, maxSpeedChange);
         body.velocity = velocity;
-    }
-}
-
-interface IAbility
-{
-    void TurnOn();
-    void TurnOff();
-}
-
-class GravityPullAbility : MonoBehaviour, IAbility
-{
-    [SerializeField] Material activeMaterial;
-    Material defMaterial;
-    MeshRenderer mesh;
-    void Awake()
-    {
-        mesh = GetComponent<MeshRenderer>();
-        defMaterial = mesh.material;
-    }
-
-    public void TurnOn()
-    {
-        mesh.material = activeMaterial;
-    }
-
-    public void TurnOff()
-    {
-        mesh.material = defMaterial;
-    }
-
-    void OnDisable()
-    {
-        mesh.material = defMaterial;
     }
 }

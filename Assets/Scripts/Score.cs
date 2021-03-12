@@ -12,12 +12,13 @@ public enum HitStatus
 
 public class Score : MonoBehaviour
 {
-    [SerializeField, Range(0, 100)] int winScore;
+    [SerializeField, Range(0, 30)] int winScore;
     int playerScore = 0;
     TextMeshProUGUI playerText;
     int enemyScore = 0;
     TextMeshProUGUI enemyText;
     IMessage message;
+    bool isEndGame = false;
 
     private void Awake()
     {
@@ -28,6 +29,8 @@ public class Score : MonoBehaviour
 
     public HitStatus CheckScore(GameObject hit)
     {
+        if (isEndGame) return HitStatus.EndGame;
+
         var status = HitStatus.Other;
         var name = hit.name;
         if (name == "Player Wall")
@@ -42,9 +45,9 @@ public class Score : MonoBehaviour
         }
 
         ShowScore();
-        var endGame = CheckWin();
-        if (endGame) status = HitStatus.EndGame;
+        isEndGame = CheckWin();
 
+        if (isEndGame) return HitStatus.EndGame;
         return status;
     }
 

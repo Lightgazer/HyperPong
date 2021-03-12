@@ -14,6 +14,13 @@ public class BallBehavior : MonoBehaviour
         var managerObject = GameObject.Find("ScoreManager");
         manager = managerObject.GetComponent<Score>();
         body = GetComponent<Rigidbody>();
+        NewSpawn();
+    }
+
+    void NewSpawn()
+    {
+        transform.localPosition = startPosition;
+        body.velocity = new Vector3(0f, 0f, 3f);
     }
 
     void OnCollisionEnter(Collision collision)
@@ -22,8 +29,7 @@ public class BallBehavior : MonoBehaviour
 
         if (res == HitStatus.Hit)
         {
-            transform.localPosition = startPosition;
-            Stop();
+            NewSpawn();
         }
         else if (res == HitStatus.EndGame)
         {
