@@ -6,7 +6,9 @@ class GravityPullAbility : MonoBehaviour, IAbility
     Material defMaterial;
     MeshRenderer mesh;
     GameObject ball;
-    bool isTurnOn = false;
+
+    public bool IsTurnOn { get; private set; }
+
     [SerializeField, Range(0, 10)] float gravForce = 1; 
 
     void Awake()
@@ -18,7 +20,7 @@ class GravityPullAbility : MonoBehaviour, IAbility
 
     void FixedUpdate()
     {
-        if (isTurnOn)
+        if (IsTurnOn)
         {
             var dist = Vector3.Distance(transform.position, ball.transform.position); //4~5
             var pullForce = gravForce / dist;
@@ -31,12 +33,12 @@ class GravityPullAbility : MonoBehaviour, IAbility
     public void TurnOn()
     {
         mesh.material = activeMaterial;
-        isTurnOn = true;
+        IsTurnOn = true;
     }
 
     public void TurnOff()
     {
         mesh.material = defMaterial;
-        isTurnOn = false;
+        IsTurnOn = false;
     }
 }

@@ -19,8 +19,9 @@ public class BallBehavior : MonoBehaviour
 
     void NewSpawn()
     {
+        var speed = Random.Range(0, 3) == 0 ? 3f : -3f;
         transform.localPosition = startPosition;
-        body.velocity = new Vector3(0f, 0f, 3f);
+        body.velocity = new Vector3(0f, 0f, speed);
     }
 
     void OnCollisionEnter(Collision collision)

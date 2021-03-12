@@ -8,25 +8,41 @@ public class ControlableSphere : MonoBehaviour
     Vector3 desiredVelocity;
     Rigidbody body;
     IAbility ability;
+    ISphereControl controler;
 
     void Awake()
     {
         body = GetComponent<Rigidbody>();
         ability = GetComponent<IAbility>();
+        controler = GetComponent<ISphereControl>();
+
     }
-    
+
     void Update()
     {
-        Vector2 playerInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        playerInput = Vector2.ClampMagnitude(playerInput, 1f);
-        desiredVelocity = new Vector3(playerInput.x, 0f, playerInput.y) * maxSpeed;
-
-        if (Input.GetKeyDown(KeyCode.Space)) ability.TurnOn();
-        if (Input.GetKeyUp(KeyCode.Space)) ability.TurnOff();
     }
 
     void FixedUpdate()
     {
+        ManageVelocity();
+
+        var desire = controler.isAbilityActive();
+        if (ability.IsTurnOn == true && desire == false)
+        {
+            ability.TurnOff();
+        }
+        else if (ability.IsTurnOn == false && desire == true)
+        {
+            ability.TurnOn();
+        }
+    }
+
+    private void ManageVelocity()
+    {
+        var direction = controler.getDesiredDirection();
+        direction = Vector2.ClampMagnitude(direction, 1f);
+        desiredVelocity = new Vector3(direction.x, 0f, direction.y) * maxSpeed;
+
         var maxSpeedChange = maxAcceleration * Time.deltaTime;
         velocity = body.velocity;
         velocity.x = Mathf.MoveTowards(velocity.x, desiredVelocity.x, maxSpeedChange);
