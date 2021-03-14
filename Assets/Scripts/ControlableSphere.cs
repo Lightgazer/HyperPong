@@ -18,14 +18,14 @@ public class ControlableSphere : MonoBehaviour
 
     }
 
-    void Update()
-    {
-    }
-
     void FixedUpdate()
     {
         ManageVelocity();
+        ManageAbility();
+    }
 
+    private void ManageAbility()
+    {
         var desire = controler.isAbilityActive();
         if (ability.IsTurnOn == true && desire == false)
         {

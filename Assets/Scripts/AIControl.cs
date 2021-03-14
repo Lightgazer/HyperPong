@@ -4,17 +4,24 @@ using UnityEngine;
 
 public class AIControl : MonoBehaviour, ISphereControl
 {
+    [SerializeField] GameObject ballTarget;
+    float targetX => ballTarget.transform.position.x;
     Vector2 direction = new Vector2(0, 0);
-    GameObject ball;
+    Transform ball;
     public Vector2 getDesiredDirection()
     {
-        var pos = transform.position - ball.transform.position;
+        var pos = transform.position - ball.position;
+        var ballToWallDist = targetX - ball.position.x;
+        var distToWall = targetX - transform.position.x;
+        var foward = distToWall > 0 ? 1 : -1;
+        var distToBall = Mathf.Abs(distToWall) - Mathf.Abs(ballToWallDist);
 
-        if (pos.x > 0)
+
+        if (distToBall > 0)
         {
-            if (pos.x > 0.9)
+            if (distToBall > 0.9)
             {
-                direction.x = -1;
+                direction.x = foward;
             }
             if (pos.z > 0)
                 direction.y = -1;
@@ -23,7 +30,7 @@ public class AIControl : MonoBehaviour, ISphereControl
         }
         else
         {
-            direction.x = 1;
+            direction.x = -foward;
             if (Mathf.Abs(pos.z) < 0.5)
                 direction.y = -1;
         }
@@ -32,22 +39,15 @@ public class AIControl : MonoBehaviour, ISphereControl
 
     public bool isAbilityActive()
     {
-        var pos = transform.position - ball.transform.position;
-        if(pos.x < 0) return true;
+        var ballToWallDist = targetX - ball.position.x;
+        var distToWall = targetX - transform.position.x;
+        if (Mathf.Abs(ballToWallDist) > Mathf.Abs(distToWall)) 
+            return true;
         return false;
     }
 
     void Awake()
     {
-        ball = GameObject.Find("Ball");
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Debug.Log(transform.position);
-            Debug.Log(ball.transform.position);
-        }
+        ball = GameObject.Find("Ball").transform;
     }
 }
