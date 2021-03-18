@@ -6,11 +6,11 @@ public class InputControl : MonoBehaviour, ISphereControl
 {
     Vector2 playerInput;
 
-    public Vector2 getDesiredDirection() {
+    public Vector2 GetDesiredDirection() {
         return playerInput;
     }
 
-    public bool isAbilityActive() {
+    public bool IsAbilityActive() {
         return Input.GetKey(KeyCode.Space);
     }
 

@@ -3,7 +3,9 @@ using TMPro;
 
 class GravityPullAbility : MonoBehaviour, IAbility
 {
-    [SerializeField] GameObject energyLabel;
+    [SerializeField] public GameObject energyLabel;
+    public bool IsTurnOn { get; private set; }
+    [SerializeField, Range(0, 10)] float gravForce = 1;
     TextMeshProUGUI energyText;
     float energy = 100;
     float maxEnergy = 100;
@@ -14,10 +16,6 @@ class GravityPullAbility : MonoBehaviour, IAbility
     Material defMaterial;
     MeshRenderer mesh;
     GameObject ball;
-
-    public bool IsTurnOn { get; private set; }
-
-    [SerializeField, Range(0, 10)] float gravForce = 1;
 
     void Awake()
     {

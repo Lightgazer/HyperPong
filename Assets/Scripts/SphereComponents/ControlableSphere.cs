@@ -15,7 +15,6 @@ public class ControlableSphere : MonoBehaviour
         body = GetComponent<Rigidbody>();
         ability = GetComponent<IAbility>();
         controler = GetComponent<ISphereControl>();
-
     }
 
     void FixedUpdate()
@@ -26,7 +25,7 @@ public class ControlableSphere : MonoBehaviour
 
     private void ManageAbility()
     {
-        var desire = controler.isAbilityActive();
+        var desire = controler.IsAbilityActive();
         if (ability.IsTurnOn == true && desire == false)
         {
             ability.TurnOff();
@@ -39,7 +38,7 @@ public class ControlableSphere : MonoBehaviour
 
     private void ManageVelocity()
     {
-        var direction = controler.getDesiredDirection();
+        var direction = controler.GetDesiredDirection();
         direction = Vector2.ClampMagnitude(direction, 1f);
         desiredVelocity = new Vector3(direction.x, 0f, direction.y) * maxSpeed;
 

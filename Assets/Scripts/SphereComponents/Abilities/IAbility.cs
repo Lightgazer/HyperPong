@@ -1,3 +1,5 @@
+using UnityEngine;
+
 interface IAbility
 {
     void TurnOn();

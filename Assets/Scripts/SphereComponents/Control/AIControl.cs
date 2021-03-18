@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class AIControl : MonoBehaviour, ISphereControl
 {
-    [SerializeField] GameObject ballTarget;
+    [SerializeField] public GameObject ballTarget;
     float targetX => ballTarget.transform.position.x;
     Vector2 direction = new Vector2(0, 0);
     Transform ball;
-    public Vector2 getDesiredDirection()
+    public Vector2 GetDesiredDirection()
     {
         var pos = transform.position - ball.position;
         var ballToWallDist = targetX - ball.position.x;
@@ -37,7 +37,7 @@ public class AIControl : MonoBehaviour, ISphereControl
         return direction;
     }
 
-    public bool isAbilityActive()
+    public bool IsAbilityActive()
     {
         var ballToWallDist = targetX - ball.position.x;
         var distToWall = targetX - transform.position.x;
