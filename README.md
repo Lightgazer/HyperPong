@@ -6,4 +6,4 @@ The player controls the sphere, not the paddle. The sphere is more difficult to 
 
 ![Screenshot 2](Screenshots/2.png?raw=true "Action")
 
-Game has Start, Pause, and End Game menus. Game has Demo mode where AI fights angaist AI.
+Game has Start, Pause, and End Game menus. Game has Demo mode where AI fights agaist AI.
